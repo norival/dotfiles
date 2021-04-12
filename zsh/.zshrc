@@ -61,6 +61,7 @@ PROMPT='[ %B%F{yellow}%n@%m%f %F{blue}%40<...<%~%b%f $(gitprompt)]%(!.#.$) '
 # autoload -U promptinit; promptinit
 # prompt spaceship
 
+export TERMINAL="/usr/bin/alacritty"
 export EDITOR="/usr/bin/nvim"
 export BROWSER=firefox-developer-edition
 export R_LIBS_USER="~/.R/lib"
@@ -77,3 +78,11 @@ bindkey '^R' history-incremental-search-backward
 #   export FZF_DEFAULT_COMMAND='rg --files'
 #   export FZF_DEFAULT_OPTS='-m --height 50% --border'
 # fi
+
+# SSH agent auto start
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+    ssh-agent -t 6h > /home/xavier/.local/run/ssh-agent.env
+fi
+if [[ ! "$SSH_AUTH_SOCK" ]]; then
+    source /home/xavier/.local/run/ssh-agent.env >/dev/null
+fi
