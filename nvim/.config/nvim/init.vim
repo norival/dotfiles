@@ -1,5 +1,6 @@
 " neovim configuration file based on sample vimrc
 " Xavier Laviron
+set nocompatible
 
 " PLUGINS START ----------------------------------------------------------------
 " Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
@@ -9,7 +10,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug '907th/vim-auto-save'          " auto save
 Plug 'airblade/vim-gitgutter'       " git signs
 Plug 'chrisbra/CheckAttach'         " check attachments in mails
-Plug 'dense-analysis/ale'           " async linting engine
+" Plug 'dense-analysis/ale'           " async linting engine
 Plug 'habamax/vim-gruvbit'          " GruvBit colorscheme
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'             " fzf integration
@@ -17,7 +18,7 @@ Plug 'junegunn/vim-easy-align'      " easy custom alignments
 Plug 'kristijanhusak/vim-dadbod-completion'
 Plug 'kristijanhusak/vim-dadbod-ui'
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " completion
-Plug 'neoclide/jsonc.vim'
+" Plug 'neoclide/jsonc.vim'
 Plug 'psliwka/vim-smoothie'         " smooth scrolling with <C-d> etc
 Plug 'tpope/vim-commentary'         " easy comments
 Plug 'tpope/vim-dadbod'
@@ -26,29 +27,43 @@ Plug 'tpope/vim-obsession'          " automatic sessions handling
 Plug 'tpope/vim-surround'           " change tags
 Plug 'tpope/vim-vinegar'            " better netrw
 
+Plug 'taniarascia/new-moon.vim'
+Plug 'sheerun/vim-polyglot'
+Plug 'sainnhe/everforest'
+Plug 'sainnhe/gruvbox-material'
+Plug 'kaicataldo/material.vim', { 'branch': 'main' }
+
 " --> Language specifics plugins
 Plug 'brett-griffin/phpdocblocks.vim'
 Plug 'chr4/nginx.vim'               " nginx syntax
 Plug 'dbeniamine/todo.txt-vim'      " todotxt support
 Plug 'jalvesaq/Nvim-R'              " R support
 Plug 'lervag/vimtex'                " LaTeX support
-Plug 'mboughaba/i3config.vim'       " i3 config syntax
-Plug 'tmux-plugins/vim-tmux'        " tmux syntax
-Plug 'cespare/vim-toml'             " toml support
+" Plug 'mboughaba/i3config.vim'       " i3 config syntax
+" Plug 'tmux-plugins/vim-tmux'        " tmux syntax
+" Plug 'cespare/vim-toml'             " toml support
 
 " --> Plugins for web development
 " Plug 'alvan/vim-closetag'
 Plug 'captbaritone/better-indent-support-for-php-with-html'
-Plug 'lumiliet/vim-twig'            " twig syntax
+" Plug 'lumiliet/vim-twig'            " twig syntax
+" Plug 'nelsyeung/twig.vim'
 Plug 'mattn/emmet-vim'              " support for emmet abbreviations
-Plug 'othree/html5.vim'             " html suppport
-Plug 'pangloss/vim-javascript'      " javascript support
+" Plug 'othree/html5.vim'             " html suppport
+" Plug 'pangloss/vim-javascript'      " javascript support
 Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o', 'branch': 'master'}
 Plug 'tpope/vim-surround'           " edtit surroundings
-Plug 'StanAngeloff/php.vim'         " php support
+" Plug 'StanAngeloff/php.vim'         " php support
 Plug 'vim-scripts/loremipsum'       " insert lorem text
-Plug 'cakebaker/scss-syntax.vim'
+" Plug 'cakebaker/scss-syntax.vim'
 Plug 'heavenshell/vim-jsdoc', {'tag': '1.0.0'}
+
+Plug 'doums/darcula'
+Plug 'bratpeki/truedark-vim'
+Plug 'kyazdani42/blue-moon'
+Plug 'pineapplegiant/spaceduck', { 'branch': 'main' }
+
+Plug 'fenetikm/falcon'
 
 " --> Other plugins
 " Plug 'rhysd/vim-grammarous'           " check grammar
@@ -109,16 +124,33 @@ set nofoldenable
 "" Colors
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
+syntax on
+set hlsearch
 
-if (has("termguicolors"))
-    syntax on
-    set hlsearch
+if (has('termguicolors'))
     set termguicolors
 endif
-set termguicolors
 
 " colorscheme
-colorscheme gruvbit
+" colorscheme gruvbit
+" colorscheme new-moon
+" colorscheme darcula
+" colorscheme truedark
+" colorscheme blue-moon
+" set background=light
+" let g:everforest_background = 'hard'
+" colorscheme everforest
+" colorscheme spaceduck
+"
+let g:gruvbox_material_palette = 'original'
+let g:gruvbox_material_background = 'hard'
+colorscheme gruvbox-material
+"
+" let g:material_theme_style = 'darker'
+" colorscheme material
+" let g:material_theme_style = 'default' | 'palenight' | 'ocean' | 'lighter' | 'darker' | 'default-community' | 'palenight-community' | 'ocean-community' | 'lighter-community' | 'darker-community'
+
+" colorscheme falcon
 
 " highlight current line
 set cursorline
@@ -152,18 +184,18 @@ function! FillLine(str)
     endif
 endfunction
 
-function! LinterStatus() abort
-    let l:counts = ale#statusline#Count(bufnr(''))
+" function! LinterStatus() abort
+"     let l:counts = ale#statusline#Count(bufnr(''))
 
-    let l:all_errors = l:counts.error + l:counts.style_error
-    let l:all_non_errors = l:counts.total - l:all_errors
+"     let l:all_errors = l:counts.error + l:counts.style_error
+"     let l:all_non_errors = l:counts.total - l:all_errors
 
-    return l:counts.total == 0 ? 'OK' : printf(
-    \   '%dW %dE',
-    \   all_non_errors,
-    \   all_errors
-    \)
-endfunction
+"     return l:counts.total == 0 ? 'OK' : printf(
+"     \   '%dW %dE',
+"     \   all_non_errors,
+"     \   all_errors
+"     \)
+" endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " mappings
@@ -225,7 +257,7 @@ set statusline=
 set statusline+=\ \[%n\]\ 
 set statusline+=%{FugitiveStatusline()}
 set statusline+=\[%{GitStatus()}\]
-set statusline+=\[%{LinterStatus()}\]
+" set statusline+=\[%{LinterStatus()}\]
 set statusline+=%{coc#status()}%{get(b:,'coc_current_function','')}
 set statusline+=\ %f%m%r%h
 set statusline+=%=
@@ -330,8 +362,8 @@ augroup END
 let g:user_emmet_leader_key = '<C-j>'
 
 " linting only on save
-let g:ale_lint_on_save = 1
-let g:ale_lint_on_text_changed = 1
+" let g:ale_lint_on_save = 1
+" let g:ale_lint_on_text_changed = 1
 
 " phpactor php completion
 autocmd FileType php setlocal omnifunc=phpactor#Complete
@@ -342,29 +374,30 @@ let g:javascript_plugin_jsdoc = 1
 
 " do not lint js with ale
 " let g:ale_linters = {'javascript': ['eslint'], 'php': ['php', 'phpstan', 'phpcs']}
-let g:ale_linters = {'javascript': ['eslint'], 'php': ['php']}
+" let g:ale_linters = {'javascript': ['eslint'], 'php': ['php', 'phpcs']}
 
-let g:ale_php_phpstan_executable = '/home/xavier/.config/composer/vendor/bin/phpstan'
-let g:ale_php_phpstan_level = 3
+" let g:ale_php_phpstan_executable = '/home/xavier/.config/composer/vendor/bin/phpstan'
+" let g:ale_php_phpstan_level = 3
 
-let g:ale_php_phpcs_executable = '/home/xavier/.config/composer/vendor/bin/phpcs'
-let g:ale_php_phpcs_standard = 'PSR2'
+" let g:ale_php_phpcs_executable = '/home/xavier/.config/composer/vendor/bin/phpcs'
+" let g:ale_php_phpcs_standard = 'PSR12'
 
 " let g:ale_fixers = {'javascript': ['prettier'], 'css': ['prettier']}
-let g:ale_linters_explicit = 1
+" let g:ale_fixers = {'javascript': ['prettier'], 'css': ['prettier']}
+" let g:ale_linters_explicit = 1
 
-let g:ale_fixers = {'php': ['php_cs_fixer']}
-let g:ale_php_cs_fixer_executable = '/home/xavier/.config/composer/vendor/bin/php-cs-fixer'
+" let g:ale_fixers = {'php': ['php_cs_fixer']}
+" let g:ale_php_cs_fixer_executable = '/home/xavier/.config/composer/vendor/bin/php-cs-fixer'
 " let g:ale_php_cs_fixer_options = '--rules=no_unused_imports,@PSR2'
-let g:ale_php_cs_fixer_options = '--rules=@PSR2,no_unused_imports,@Symfony,{"binary_operator_spaces": {default: "align"}}'
-let g:ale_fix_on_save = 1
+" let g:ale_php_cs_fixer_options = '--rules=@PSR12,no_unused_imports,@Symfony,{"binary_operator_spaces": {default: "align"}}'
+" let g:ale_fix_on_save = 0
 
 let g:AutoPairsCenterLine = 0
 
 " FZF settings
-nnoremap <silent> <C-f> :Files<CR>
-nnoremap <silent> <C-g> :GFiles<CR>
-nnoremap <silent> <C-a> :Ag<CR>
+nnoremap <silent> <C-f> :GFiles<CR>
+nnoremap <silent> <C-g> :Files<CR>
+nnoremap <silent> <C-z> :Ag<CR>
 
 " CoC configuration ************************************************************
 

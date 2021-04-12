@@ -4,5 +4,6 @@
     "javascript.showUnused": false,
     "javascript.validate.enable": true,
     "coc.preferences.formatOnSaveFiletypes": ["css", "Markdown"],
-    "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true
+    "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
+    "angular.experimental-ivy": true
 }
