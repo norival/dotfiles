@@ -2,7 +2,7 @@
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
-setopt autocd extendedglob nomatch notify
+setopt autocd noextendedglob nomatch notify
 unsetopt beep
 bindkey -v
 # End of lines configured by zsh-newuser-install
@@ -81,7 +81,7 @@ bindkey '^R' history-incremental-search-backward
 
 # SSH agent auto start
 if ! pgrep -u "$USER" ssh-agent > /dev/null; then
-    ssh-agent -t 6h > /home/xavier/.local/run/ssh-agent.env
+    ssh-agent -t 12h > /home/xavier/.local/run/ssh-agent.env
 fi
 if [[ ! "$SSH_AUTH_SOCK" ]]; then
     source /home/xavier/.local/run/ssh-agent.env >/dev/null

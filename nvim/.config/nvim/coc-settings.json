@@ -5,5 +5,9 @@
     "javascript.validate.enable": true,
     "coc.preferences.formatOnSaveFiletypes": ["css", "Markdown"],
     "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
-    "angular.experimental-ivy": true
+    "angular.experimental-ivy": true,
+    "php-cs-fixer.enableFormatProvider": true,
+    "php-cs-fixer.rules": "@PSR12",
+    "phpactor.enable": true,
+    "phpactor.path": "/home/xavier/bin/phpactor"
 }

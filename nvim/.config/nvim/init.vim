@@ -10,7 +10,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug '907th/vim-auto-save'          " auto save
 Plug 'airblade/vim-gitgutter'       " git signs
 Plug 'chrisbra/CheckAttach'         " check attachments in mails
-" Plug 'dense-analysis/ale'           " async linting engine
+Plug 'dense-analysis/ale'           " async linting engine
 Plug 'habamax/vim-gruvbit'          " GruvBit colorscheme
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'             " fzf integration
@@ -39,6 +39,7 @@ Plug 'chr4/nginx.vim'               " nginx syntax
 Plug 'dbeniamine/todo.txt-vim'      " todotxt support
 Plug 'jalvesaq/Nvim-R'              " R support
 Plug 'lervag/vimtex'                " LaTeX support
+" Plug 'HerringtonDarkholme/yats.vim' 
 " Plug 'mboughaba/i3config.vim'       " i3 config syntax
 " Plug 'tmux-plugins/vim-tmux'        " tmux syntax
 " Plug 'cespare/vim-toml'             " toml support
@@ -51,12 +52,12 @@ Plug 'captbaritone/better-indent-support-for-php-with-html'
 Plug 'mattn/emmet-vim'              " support for emmet abbreviations
 " Plug 'othree/html5.vim'             " html suppport
 " Plug 'pangloss/vim-javascript'      " javascript support
-Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o', 'branch': 'master'}
+Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'}
 Plug 'tpope/vim-surround'           " edtit surroundings
 " Plug 'StanAngeloff/php.vim'         " php support
 Plug 'vim-scripts/loremipsum'       " insert lorem text
 " Plug 'cakebaker/scss-syntax.vim'
-Plug 'heavenshell/vim-jsdoc', {'tag': '1.0.0'}
+Plug 'heavenshell/vim-jsdoc'
 
 Plug 'doums/darcula'
 Plug 'bratpeki/truedark-vim'
@@ -64,6 +65,12 @@ Plug 'kyazdani42/blue-moon'
 Plug 'pineapplegiant/spaceduck', { 'branch': 'main' }
 
 Plug 'fenetikm/falcon'
+
+Plug 'jonsmithers/vim-html-template-literals'
+
+Plug 'honza/vim-snippets'
+
+" Plug 'neovim/nvim-lspconfig'
 
 " --> Other plugins
 " Plug 'rhysd/vim-grammarous'           " check grammar
@@ -145,10 +152,10 @@ endif
 let g:gruvbox_material_palette = 'original'
 let g:gruvbox_material_background = 'hard'
 colorscheme gruvbox-material
-"
+
+" let g:material_theme_style = 'default' | 'palenight' | 'ocean' | 'lighter' | 'darker' | 'default-community' | 'palenight-community' | 'ocean-community' | 'lighter-community' | 'darker-community'
 " let g:material_theme_style = 'darker'
 " colorscheme material
-" let g:material_theme_style = 'default' | 'palenight' | 'ocean' | 'lighter' | 'darker' | 'default-community' | 'palenight-community' | 'ocean-community' | 'lighter-community' | 'darker-community'
 
 " colorscheme falcon
 
@@ -207,7 +214,7 @@ let maplocalleader = ","
 set timeout ttimeoutlen=50
 imap jk <Esc>
 nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
-map S :Gstatus<CR>
+map <Leader>s :Git<CR>
 
 " maps non breaking space into normal space
 imap   <space>
@@ -375,8 +382,10 @@ let g:javascript_plugin_jsdoc = 1
 " do not lint js with ale
 " let g:ale_linters = {'javascript': ['eslint'], 'php': ['php', 'phpstan', 'phpcs']}
 " let g:ale_linters = {'javascript': ['eslint'], 'php': ['php', 'phpcs']}
+" let g:ale_linters_explicit = 1
+let g:ale_linters = {'javascript': [], 'typescript': [], 'php': ['phpstan', 'php', 'phpcs']}
 
-" let g:ale_php_phpstan_executable = '/home/xavier/.config/composer/vendor/bin/phpstan'
+let g:ale_php_phpstan_executable = '/usr/bin/phpstan'
 " let g:ale_php_phpstan_level = 3
 
 " let g:ale_php_phpcs_executable = '/home/xavier/.config/composer/vendor/bin/phpcs'
@@ -384,7 +393,6 @@ let g:javascript_plugin_jsdoc = 1
 
 " let g:ale_fixers = {'javascript': ['prettier'], 'css': ['prettier']}
 " let g:ale_fixers = {'javascript': ['prettier'], 'css': ['prettier']}
-" let g:ale_linters_explicit = 1
 
 " let g:ale_fixers = {'php': ['php_cs_fixer']}
 " let g:ale_php_cs_fixer_executable = '/home/xavier/.config/composer/vendor/bin/php-cs-fixer'
@@ -418,3 +426,14 @@ endfunction
 inoremap <silent><expr> <c-space> coc#refresh()
 
 nmap <leader>ac  <Plug>(coc-codeaction)
+
+let g:htl_css_templates = 1
+let g:htl_all_templates = 1
+
+let g:fzf_layout = { 'window': { 'width': 1, 'height': 1 } }
+let g:fzf_preview_window = ['right:35%', 'ctrl-o']
+
+set diffopt=vertical
+
+" Use <C-j> for both expand and jump (make expand higher priority.)
+" imap <C-i> <Plug>(coc-snippets-expand-jump)
