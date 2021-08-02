@@ -106,7 +106,11 @@ set linebreak     " break long lines
 
 " Foldings
 set foldmethod=syntax
-set foldnestmax=1
+set foldnestmax=5
+
+" Automatically save and reload folds
+" autocmd BufWinLeave *.* mkview!
+" autocmd BufWinEnter *.* silent loadview 
 
 " Set tabulations
 set expandtab
