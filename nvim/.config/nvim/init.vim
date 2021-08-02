@@ -383,7 +383,7 @@ let g:javascript_plugin_jsdoc = 1
 " let g:ale_linters = {'javascript': ['eslint'], 'php': ['php', 'phpstan', 'phpcs']}
 " let g:ale_linters = {'javascript': ['eslint'], 'php': ['php', 'phpcs']}
 " let g:ale_linters_explicit = 1
-let g:ale_linters = {'javascript': [], 'typescript': [], 'php': ['phpstan', 'php', 'phpcs']}
+let g:ale_linters = {'javascript': [], 'typescript': [], 'php': ['phpstan', 'php']}
 
 let g:ale_php_phpstan_executable = '/usr/bin/phpstan'
 " let g:ale_php_phpstan_level = 3
