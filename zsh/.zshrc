@@ -68,6 +68,7 @@ export R_LIBS_USER="~/.R/lib"
 export VISUAL="nvim"
 export GIT_EDITOR="nvim"
 export SYSTEMD_EDITOR="nvim"
+export LEDGER_FILE=~/finance/cmmc.journal
 
 # search in history
 bindkey '\e[3~' delete-char
